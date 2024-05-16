@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({children,className }) => {
                 </Button>
             </div>
             <div>
-                <Button className="px-4 bg-slate-50  ">
+                <Button className="px-4 bg-slate-50 opacity-65 ">
                     Login
                 </Button>
             </div>
@@ -56,6 +56,7 @@ const Header: React.FC<HeaderProps> = ({children,className }) => {
 
         </div>
      </div>
+     {children}
     </header>
     </>
   )
