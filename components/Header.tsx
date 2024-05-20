@@ -9,6 +9,8 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import { FaUserAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { to } from '../.next/server/vendor-chunks/next';
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -32,7 +34,9 @@ const Header: React.FC<HeaderProps> = ({
 
     //TODO: tost
     if (error) {
-      console.log(error);
+       toast.error(error.message)
+    }else{
+        toast.success('Logged out!')
     }
   };
   return (
