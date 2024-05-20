@@ -2,5 +2,7 @@
     "cSpell.words": [
         "nextjs",
         "Supabase"
-    ]
+    ],
+    "prettier.printWidth": 60,
+    "prettier.endOfLine": "lf"
 }

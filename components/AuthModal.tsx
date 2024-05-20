@@ -1,39 +1,65 @@
-     'use client'
+"use client";
 
-import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react"
-import Modal from "./Modal"
+import {
+  useSessionContext,
+  useSupabaseClient,
+} from "@supabase/auth-helpers-react";
+import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { useEffect } from "react";
+import useAuthModal from "@/hooks/useAuthModal";
 
-    const AuthModal = () => {
-        const supabaseClient = useSupabaseClient();
-        const router= useRouter();
-        const { session } = useSessionContext();
 
-      return (
-        <Modal title='Welcome back'
-         description="Login to your account" 
-         isOpen onChange={()=> {}}>
+const AuthModal = () => {
+  const supabaseClient = useSupabaseClient();
+  const router = useRouter();
+  const { session } = useSessionContext();
+  
+  const { isOpen, onOpen, onClose } = useAuthModal(); 
+    
+  
 
-         <Auth theme="dark"
-          magicLink
-          supabaseClient={supabaseClient} 
-          providers={['google', 'github']}
-          appearance={{
-            theme: ThemeSupa,
-            variables: {
-                default: {
-                    colors: {
-                        brand: '#293133',
-                        brandAccent: '#1ED760'
-                    }
-                }
-            }    
-         }}/>
-        </Modal>
-      )
+  useEffect(() => {
+    if (session) {
+      router.refresh();
+      onClose();
     }
-    
-    export default AuthModal
-    
+  }, [session, router, onClose]);
+
+  const onChange = (open: boolean) => {
+    if (!open) {
+      onClose();
+    }
+  };
+
+  return (
+    <Modal
+      title="Welcome back"
+      description="Login to your account"
+      isOpen={isOpen}
+      onChange={onChange}
+    >
+      <Auth
+        theme="dark"
+        magicLink
+        supabaseClient={supabaseClient}
+        providers={["google", "github"]}
+        appearance={{
+          theme: ThemeSupa,
+          variables: {
+            default: {
+              colors: {
+                brand: "#293133",
+                brandAccent: "#1ED760",
+              },
+            },
+          },
+        }}
+      />
+    </Modal>
+  );
+};
+
+export default AuthModal;

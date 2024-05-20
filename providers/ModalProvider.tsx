@@ -1,26 +1,26 @@
 'use client'
 
 import AuthModal from "@/components/AuthModal";
-
-
 import { useEffect, useState } from "react"
 
 const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(()=> {
-        setIsMounted(true) // non of the modals could be seen or open during the server side rendering 
+        setIsMounted(true);
     }, [])
 
     if(!isMounted) {
         return null; 
     }
 
-  return (
-<>
-    <AuthModal/>
+    return (
+      <>
+        <AuthModal />
       </>
-  )
+    );
+   
+  
 }
 
-export default ModalProvider
+export default ModalProvider; 

@@ -3,8 +3,6 @@ import { User } from '@supabase/auth-helpers-nextjs';
 import { useSessionContext, useUser as  useSupabaseUser } from '@supabase/auth-helpers-react';
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-//hook to load user details and to load the subscription;
-
 type UserContextType = {
     accessToken: string | null; 
     user: User | null; 

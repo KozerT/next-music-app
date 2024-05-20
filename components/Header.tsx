@@ -1,11 +1,12 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react"
 import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
 import Button from "./Button";
+import useAuthModal from "@/hooks/useAuthModal";
+
 
 type HeaderProps = {
     children: React.ReactNode;
@@ -13,7 +14,9 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({children,className }) => {
-    const router = useRouter();
+    const { onOpen } = useAuthModal();
+     const router = useRouter();
+
     const handleLogOut = () => {
         //handle functionality
     }
@@ -43,14 +46,14 @@ const Header: React.FC<HeaderProps> = ({children,className }) => {
         flex justify-between items-center gap-x-4">
             <>
             <div>
-                <Button className=" bg-transparent text-neutral-300 font-normal ">
-                    Sign Up
-                </Button>
+            <Button onClick={onOpen} className="bg-transparent text-neutral-300 font-normal">
+              Sign Up
+            </Button>
             </div>
             <div>
-                <Button className="px-4 bg-slate-50 opacity-65 ">
-                    Login
-                </Button>
+            <Button className="px-4 bg-slate-50 opacity-65" onClick={onOpen}>
+              Login
+            </Button>
             </div>
             </>
 
@@ -58,8 +61,9 @@ const Header: React.FC<HeaderProps> = ({children,className }) => {
      </div>
      {children}
     </header>
+
     </>
   )
 }
 
-export default Header
+export default Header; 
