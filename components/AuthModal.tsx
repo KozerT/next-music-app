@@ -17,10 +17,14 @@ const AuthModal = () => {
   const router = useRouter();
   const { session } = useSessionContext();
   
-  const { isOpen, onOpen, onClose } = useAuthModal(); 
-    
-  
+  const { isOpen,  onClose } = useAuthModal(); 
 
+  const onChange = (open: boolean) => {
+    if (!open) {
+      onClose();
+    }
+  };
+    
   useEffect(() => {
     if (session) {
       router.refresh();
@@ -28,11 +32,7 @@ const AuthModal = () => {
     }
   }, [session, router, onClose]);
 
-  const onChange = (open: boolean) => {
-    if (!open) {
-      onClose();
-    }
-  };
+
 
   return (
     <Modal
@@ -45,7 +45,7 @@ const AuthModal = () => {
         theme="dark"
         magicLink
         supabaseClient={supabaseClient}
-        providers={["google", "github"]}
+        providers={["github"]}
         appearance={{
           theme: ThemeSupa,
           variables: {
