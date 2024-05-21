@@ -4,7 +4,7 @@ import useUploadModal from "@/hooks/useUploadModal"
 import Modal from "./Modal"
 
 const UploadModal = () => {
-  const uploadModal =   useUploadModal();
+  const uploadModal = useUploadModal();
 
   const onChange = (open: boolean)=> {
   if(!open){
