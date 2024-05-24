@@ -17,6 +17,7 @@ import { twMerge } from 'tailwind-merge'
             type={type}
             disabled={disabled}
             ref={ref}
+            {...props}
             className={twMerge(
                 `flex w-full
                 rounded-md

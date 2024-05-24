@@ -26,41 +26,31 @@ export const MyUserContextProvider = (props: Props) => {
     const [userDetails , setUserDetails] = useState<UserDetails | null>(null);
     const [subscription, setSubscription] = useState<Subscription | null>(null);
 
-    const getUserDetails = async () => {
-        const { data, error } = await supabase.from('users').select('*').single();
-        if (error) throw error;
-        return data;
-      };
+    const getUserDetails =  () =>  supabase.from('users').select('*').single();
     
-    
- const getSubscription = async () => {
-        const { data, error } = await supabase.from('subscriptions')
-          .select('*, prices(*, products(*))')
-          .in('status', ['trialing', 'active'])
-          .single();
-        if (error) throw error;
-        return data;
-      };
+ const getSubscription = async () => supabase.from('subscriptions').select('*, prices(*, products(*))').in('status', ['trialing', 'active']).single();
+      
 
       useEffect(() => {
-        if (user && !isLoadingData && !userDetails && !subscription) {
+        if (user && !isLoadingData && !userDetails && !subscription ) {
           setIsLoadingData(true);
     
-          (async () => {
-            try {
-              const [userDetailsData, subscriptionData] = await Promise.all([
-                getUserDetails(),
-                getSubscription(),
-              ]);
-    
-              setUserDetails(userDetailsData);
-              setSubscription(subscriptionData);
-            } catch (error) {
-              console.error('Error fetching user data:', error);
-            } finally {
-              setIsLoadingData(false);
+        Promise.allSettled([getUserDetails(), getSubscription()]).then(
+          (results)=> {
+            const userDetailsPromise = results[0]; 
+            const subscriptionPromise =  results[1];
+
+            if(userDetailsPromise.status === 'fulfilled'){
+              setUserDetails(userDetailsPromise.value.data as UserDetails)
             }
-          })();
+
+            if(subscriptionPromise.status === 'fulfilled'){
+              setSubscription(subscriptionPromise.value.data as Subscription )
+            }
+            setIsLoadingData(false);
+          }
+        ) 
+        
         } else if (!user && !isLoadingData && !isLoadingUser) {
           setUserDetails(null);
           setSubscription(null);
@@ -71,7 +61,7 @@ export const MyUserContextProvider = (props: Props) => {
         accessToken, 
         user,
         userDetails,
-        isLoading: isLoadingData || isLoadingUser,
+        isLoading: isLoadingUser || isLoadingData,
         subscription
     };
 
@@ -80,7 +70,7 @@ export const MyUserContextProvider = (props: Props) => {
 
 export const useUser = () => {
     const context = useContext(UserContext);
-    if (!context) {
+    if (context === undefined) {
         throw new Error('useUser must be used with the MyUserContextProvider');
       }
   return context;

@@ -8,9 +8,7 @@ const ToasterProvider = () => {
             background: '#333',
             color: '#fff'
         }
-    }}>
-      
-    </Toaster>
+    }}/>
   )
 }
 

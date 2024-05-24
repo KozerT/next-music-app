@@ -39,7 +39,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ToasterProvider/>
-      <SupabaseProvider>
+         <SupabaseProvider>
           <UserProvider>
             <ModalProvider/>
             <SideBar>{children}</SideBar>

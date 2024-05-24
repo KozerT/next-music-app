@@ -10,8 +10,8 @@ interface UploadModalStore{
 const useUploadModal =  create<UploadModalStore>(
   (set) => ({
     isOpen: false,
-    onOpen: async() => {set({ isOpen: true })},
-    onClose: async() =>{ set({ isOpen: false })},
+    onOpen: async() => set({ isOpen: true }),
+    onClose: async() =>set({ isOpen: false }),
   })
 )
 
