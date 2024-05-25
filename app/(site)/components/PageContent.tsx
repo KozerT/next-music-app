@@ -5,7 +5,7 @@ import { Song } from "@/types"
 
 type PageContentProps = {
     songs: Song[];
-   
+
 
 }
 
