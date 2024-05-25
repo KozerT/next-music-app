@@ -6,7 +6,7 @@ import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
-
+import getSongsByUserId from '../actions/getSongsByUserId';
 
 
 const font = Poppins({
@@ -30,11 +30,15 @@ export const metadata: Metadata = {
     "Discover and enjoy music with this intuitive Spotify clone made with Next.js",
 };
 
-export default function RootLayout({
+export const revalidate = 0 ; // prevent cashing
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const userSongs = await getSongsByUserId();
+
   return (
     <html lang="en">
       <body className={font.className}>
@@ -42,7 +46,7 @@ export default function RootLayout({
          <SupabaseProvider>
           <UserProvider>
             <ModalProvider/>
-            <SideBar>{children}</SideBar>
+            <SideBar songs={userSongs}>{children}</SideBar>
           </UserProvider>
         </SupabaseProvider>
       </body>
