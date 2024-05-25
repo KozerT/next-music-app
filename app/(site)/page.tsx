@@ -1,8 +1,13 @@
+import getSongs from "@/actions/getSongs";
 import AuthModal from "@/components/AuthModal";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 
-export default function Home() {
+export const revalidate = 0; //this page won't be cached;
+
+
+export default  async function Home() {
+  const songs = await getSongs() 
   return  (
   <div className=" bg-neutral-900 rounded-2xl  h-full w-full overflow-hidden overflow-y-auto">
     <Header>
