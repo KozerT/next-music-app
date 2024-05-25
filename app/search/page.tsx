@@ -26,6 +26,7 @@ return (
           <SearchInput />
          </div>
         </Header>
+        <SearchContent/>
     </div>
 )
 }
