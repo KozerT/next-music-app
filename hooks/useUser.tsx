@@ -6,7 +6,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 type UserContextType = {
     accessToken: string | null; 
     user: User | null; 
-    userDetails: UserDetails | null; 
+    userDetails: UserDetails | null;  
     subscription: Subscription | null; 
     isLoading: boolean;
 }
