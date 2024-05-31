@@ -10,7 +10,8 @@ import { IoVolumeHighOutline } from "react-icons/io5";
 import Slider from "./Slider";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import usePlayer from "@/hooks/usePlayer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useSound from 'use-sound'
 
 type PlayerContentProps = {
      song: Song;
@@ -25,6 +26,46 @@ const PlayerContent: React.FC <PlayerContentProps> = ({
   const player = usePlayer();
   const[volume, setVolume]=useState(1);
   const [isPlaying , setIsPlaying]=useState(false);
+
+  const [play, {paused, sound}] = useSound(
+    songUrl, {
+      volume: volume,
+      onplay: ()=> setIsPlaying(true),
+      onend: ()=> {
+        setIsPlaying(false);
+        onPlayNext();
+      },
+      onpause: ()=> setIsPlaying(false),
+      format: ['mp3']
+    }
+  )
+  
+
+  useEffect(()=>{
+    sound?.play();
+
+    return ()=> {
+      sound?.unload();
+    }
+  },[sound])
+
+
+  const handlePlay = () => {
+    if(!isPlaying){
+      play()
+    }else{
+      paused()
+    }
+  }
+
+
+  const toggleMute = () =>{
+      if(volume === 0){
+        setVolume(1)
+      }else{
+       setVolume(0)
+      }
+  }
 
     const Icon = true ? BsPauseFill : BsPlayFill;
     const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
@@ -60,6 +101,7 @@ const PlayerContent: React.FC <PlayerContentProps> = ({
   player.setId(prevSong)
 }
 
+
   return (
 
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
@@ -93,8 +135,11 @@ const PlayerContent: React.FC <PlayerContentProps> = ({
 
      <div className="hidden w-full md:flex w-full grid-cols-2  md:grid-cols-3 h-full ">
         <div className="flex items-center gap-x-4 w-[120px]">
-          <VolumeIcon onClick={()=>{}} className="cursor-pointer"/>
-          <Slider/>
+          <VolumeIcon onClick={toggleMute} className="cursor-pointer"/>
+          <Slider value={volume}
+          onChange={(value)=> {
+              setVolume(value)
+          }}/>
         </div>      
      </div>
     </div>
