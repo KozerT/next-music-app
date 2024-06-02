@@ -3,8 +3,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { headers, cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import {createOrRetrieveACustomer} from '@/libs/supabaseAdmin'; 
-import { metadata } from '../../layout';
-import { getURL } from "next/dist/shared/lib/utils";
+import { getURL } from "@/libs/helpers";
 
 
 export async function POST (request: Request){
