@@ -44,6 +44,10 @@ export type Price = {
     products?: Product;
 }
 
+export interface ProductWithPrice extends Product {
+    prices?: Price [];
+  }; 
+
 export type Subscription ={
     id: string;
     user_id: string;
@@ -62,3 +66,4 @@ export type Subscription ={
     trial_end?: string;
     prices?: Price
 }
+

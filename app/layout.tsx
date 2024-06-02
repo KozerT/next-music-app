@@ -8,6 +8,7 @@ import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import getSongsByUserId from '../actions/getSongsByUserId';
 import Player from "@/components/Player";
+import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 
 
 const font = Poppins({
@@ -39,6 +40,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userSongs = await getSongsByUserId();
+  const products = await getActiveProductsWithPrices();
 
 
   return (
@@ -47,7 +49,7 @@ export default async function RootLayout({
         <ToasterProvider/>
          <SupabaseProvider>
           <UserProvider>
-            <ModalProvider/>
+            <ModalProvider products={products}/>
             <SideBar songs={userSongs}>{children}</SideBar>
             <Player/>
           </UserProvider>
