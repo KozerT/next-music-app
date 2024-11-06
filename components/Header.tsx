@@ -1,45 +1,44 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { BiSearch } from "react-icons/bi";
-import { HiHome } from "react-icons/hi";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import { twMerge } from "tailwind-merge";
-import Button from "./Button";
-import useAuthModal from "@/hooks/useAuthModal";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useUser } from "@/hooks/useUser";
-import { FaUserAlt } from "react-icons/fa";
-import toast from "react-hot-toast";
-import usePlayer from "@/hooks/usePlayer";
-
+"use client"
+import { useRouter } from "next/navigation"
+import { BiSearch } from "react-icons/bi"
+import { HiHome } from "react-icons/hi"
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
+import { twMerge } from "tailwind-merge"
+import Button from "./Button"
+import useAuthModal from "@/hooks/useAuthModal"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useUser } from "@/hooks/useUser"
+import { FaUserAlt } from "react-icons/fa"
+import toast from "react-hot-toast"
+import usePlayer from "@/hooks/usePlayer"
 
 type HeaderProps = {
-  children: React.ReactNode;
-  className?: string;
-};
+  children: React.ReactNode
+  className?: string
+}
 
 const Header: React.FC<HeaderProps> = ({
   children,
   className,
 }) => {
-  const { onOpen } = useAuthModal();
-  const router = useRouter();
-  const player = usePlayer();
+  const { onOpen } = useAuthModal()
+  const router = useRouter()
+  const player = usePlayer()
 
-  const supabaseClient = useSupabaseClient();
-  const { user } = useUser();
+  const supabaseClient = useSupabaseClient()
+  const { user } = useUser()
 
   const handleLogOut = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    player.reset();
-    router.refresh();
+    const { error } = await supabaseClient.auth.signOut()
+    player.reset()
+    router.refresh()
 
     if (error) {
-       toast.error(error.message)
-    }else{
-        toast.success('Logged out!')
+      toast.error(error.message)
+    } else {
+      toast.success("Logged out!")
     }
-  };
+  }
   return (
     <>
       <header
@@ -81,12 +80,19 @@ const Header: React.FC<HeaderProps> = ({
           >
             {user ? (
               <div className="flex  items-center gap-x-4 ">
-                <Button onClick={handleLogOut}  className= "bg-neutral-200 px-4 py-2 ">Logout</Button>
-                 <Button onClick={()=> router.push('/account')}
-                 className="bg-neutral-200 py-2 text-lg text-stone-900">
-                    <FaUserAlt/>
-                 </Button>
-                 </div>
+                <Button
+                  onClick={handleLogOut}
+                  className="bg-neutral-200 px-4 py-2 "
+                >
+                  Logout
+                </Button>
+                <Button
+                  onClick={() => router.push("/account")}
+                  className="bg-neutral-200 py-2 text-lg text-stone-900"
+                >
+                  <FaUserAlt />
+                </Button>
+              </div>
             ) : (
               <>
                 <div>
@@ -112,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({
         {children}
       </header>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

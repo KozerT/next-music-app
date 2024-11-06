@@ -33,12 +33,13 @@ const AuthModal = () => {
 
   return (
     <Modal
-      title="Welcome back"
+      title="Welcome"
       description="Login to your account"
       isOpen={isOpen}
       onChange={onChange}
     >
       <Auth
+        view="sign_up"
         theme="dark"
         magicLink
         supabaseClient={supabaseClient}
