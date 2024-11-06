@@ -1,38 +1,35 @@
-"use client";
+"use client"
 
 import {
   useSessionContext,
   useSupabaseClient,
-} from "@supabase/auth-helpers-react";
-import Modal from "./Modal";
-import { useRouter } from "next/navigation";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { useEffect } from "react";
-import useAuthModal from "@/hooks/useAuthModal";
-
+} from "@supabase/auth-helpers-react"
+import Modal from "./Modal"
+import { useRouter } from "next/navigation"
+import { Auth } from "@supabase/auth-ui-react"
+import { ThemeSupa } from "@supabase/auth-ui-shared"
+import { useEffect } from "react"
+import useAuthModal from "@/hooks/useAuthModal"
 
 const AuthModal = () => {
-  const supabaseClient = useSupabaseClient();
-  const router = useRouter();
-  const { session } = useSessionContext();
-  
-  const { isOpen,  onClose } = useAuthModal(); 
+  const supabaseClient = useSupabaseClient()
+  const router = useRouter()
+  const { session } = useSessionContext()
+
+  const { isOpen, onClose } = useAuthModal()
 
   const onChange = (open: boolean) => {
     if (!open) {
-      onClose();
+      onClose()
     }
-  };
-    
+  }
+
   useEffect(() => {
     if (session) {
-      router.refresh();
-      onClose();
+      router.refresh()
+      onClose()
     }
-  }, [session, router, onClose]);
-
-
+  }, [session, router, onClose])
 
   return (
     <Modal
@@ -59,7 +56,7 @@ const AuthModal = () => {
         }}
       />
     </Modal>
-  );
-};
+  )
+}
 
-export default AuthModal;
+export default AuthModal
