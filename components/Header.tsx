@@ -43,14 +43,14 @@ const Header: React.FC<HeaderProps> = ({
     <>
       <header
         className={twMerge(
-          `h-fit bg-gradient-to-b from-emerald-900 p-6`,
+          `h-fit bg-gradient-to-b from-green-900 via-green-500 p-6`,
           className
         )}
       >
         <div className=" w-full mb-4 flex items-center justify-between">
           <div className="hidden md:flex gap-x-2 items-center">
             <button
-              className="bg-black rounded-full flex items-center hover:opacity-75 transition "
+              className="bg-transparent flex items-center hover:opacity-75 transition "
               onClick={() => router.back()}
             >
               <RxCaretLeft
@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({
                 className=" text-wite"
               />
             </button>
-            <button className="bg-black rounded-full flex items-center hover:opacity-75 transition">
+            <button className="bg-transparent flex items-center hover:opacity-75 transition">
               <RxCaretRight
                 size={35}
                 className=" text-wite"
@@ -82,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({
               <div className="flex  items-center gap-x-4 ">
                 <Button
                   onClick={handleLogOut}
-                  className="bg-neutral-200 px-4 py-2 "
+                  className="bg-transparent bo text-neutral-200 px-4 py-2"
                 >
                   Logout
                 </Button>

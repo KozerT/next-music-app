@@ -18,7 +18,7 @@ const SongItem: React.FC<SongItemProps> = ({
   return (
     <div
       onClick={() => onClick(data.id)}
-      className="group relative flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 p-1 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition "
+      className="group relative flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 p-2 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition "
     >
       <div className="w-full h-full rounded-md relative aspect-square overflow-hidden">
         <Image
@@ -28,7 +28,7 @@ const SongItem: React.FC<SongItemProps> = ({
           alt="Image"
         />
       </div>
-      <div className="flex flex-col w-full items-start pt-4 gap-y-2">
+      <div className="flex flex-col w-full items-start pt-4 gap-y-2 px-2">
         <p className="truncate font-semibold w-full">
           {data.title}
         </p>
