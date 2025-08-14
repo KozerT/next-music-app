@@ -1,14 +1,16 @@
-'use client'
-import {Toaster} from 'react-hot-toast';
+"use client"
+import { Toaster } from "react-hot-toast"
 
 const ToasterProvider = () => {
   return (
-    <Toaster toastOptions={{
+    <Toaster
+      toastOptions={{
         style: {
-            background: '#333',
-            color: '#fff'
-        }
-    }}/>
+          background: "#333",
+          color: "#fff",
+        },
+      }}
+    />
   )
 }
 
