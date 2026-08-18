@@ -1,9 +1,17 @@
 {
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
   "cSpell.words": [
     "nextjs",
     "qqnxyohpzypfpnbwesxy",
     "Supabase"
   ],
-  "prettier.printWidth": 60,
-  "prettier.endOfLine": "lf"
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true,
+  "prettier.endOfLine": "lf",
+  "prettier.printWidth": 60
 }
